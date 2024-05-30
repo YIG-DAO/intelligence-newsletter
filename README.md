@@ -57,19 +57,19 @@ To run the Intelligence Newsletter Service using Docker, follow these steps:
 2. Create a container from the image and run it:
     ```bash
     docker run -d --name yeetint-intelligence-newsletter
-    intelligence-newsletter-service
+    intelligence-newsletter
     ```
-    This will create a Docker container named `yeetint-intelligence-newsletter` and run the Intelligence Newsletter Service inside it.
+    This will create a Docker container named `intelligence-newsletter` and run the Intelligence Newsletter Service inside it.
 
 3. To stop the container, use the following command:
     ```bash
-    docker stop yeetint-intelligence-newsletter
+    docker stop intelligence-newsletter
     ```
     You can start the container again using the `docker start` command.
 
 4. To remove the container, use the following command:
     ```bash
-    docker rm yeetint-intelligence-newsletter
+    docker rm intelligence-newsletter
     ```
     This will remove the container, but the Docker image will still be available for future use.
 
