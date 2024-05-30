@@ -1,7 +1,7 @@
 import os
 import openai
 
-openai.api_key  = os.getenv('API_KEY')
+ENGINEERED_PRE_PROMPT = "In <p> formatting, give me a cyber intelligence & financial security intelligence executive summary based on every information provided:\n"
 
 def GPT4(prompt):
     """
@@ -18,13 +18,14 @@ def GPT4(prompt):
 
     """
     print("> Fetching GPT4_EXEC_SYNOPSIS")
-    # ChatGPT (or gpt3.5 turbo)
+    # ChatGPT (or gpt4-turbo)
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are an Cyber intelligence and economic security advisor"},
-            {"role": "user", "content": prompt},
+            {"role": "user", "content": ENGINEERED_PRE_PROMPT + prompt},
         ],
         max_tokens=400
     )
-    return response
+    return response['choices'][0]['message']['content']
+

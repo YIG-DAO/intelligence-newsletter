@@ -43,7 +43,7 @@ DB_STATEMENT =
 - The version of Python for testing was done in 3.9.13.
 ```
 pip3 install -r requirements.txt
-python3 report.py
+python3 g2.py
 ```
 
 ## Docker Build and Run

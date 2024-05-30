@@ -1,6 +1,7 @@
 import json
 import feedparser
 import requests
+import time
 
 def gov_contracts_process(contract_url):
     """
@@ -166,3 +167,42 @@ def rss_process(ysi_feed):
     except Exception as e:
         print(f"An error occurred while fetching the RSS feed: {str(e)}")
         return None
+
+def extract_data(rss_url, sentiment_url, gov_contracts_url, insider_trades_url, cve_url):
+    """
+    Extracts data from various sources and returns the processed data.
+
+    Returns:
+        JSON: A JSON object containing the processed data from different sources.
+            - processed_rss: Processed RSS data.
+            - processed_sentiment: Processed sentiment data.
+            - processed_gov_contracts: Processed government contracts data.
+            - processed_insider_trades: Processed insider trades data.
+            - processed_cve: Processed CVE data.
+    """
+    max_retries = 3
+    retry_delay = 5
+
+    for attempt in range(max_retries):
+        try:
+            processed_rss = rss_process(rss_url)
+            processed_sentiment = sent_process(sentiment_url)
+            processed_gov_contracts = gov_contracts_process(gov_contracts_url)
+            processed_insider_trades = insider_trades_process(insider_trades_url)
+            processed_cve = cve_process(cve_url)
+            report_data = {
+                "gov_contracts": processed_gov_contracts,
+                "insider_trades": processed_insider_trades,
+                "cve": processed_cve,
+                "sentiment": processed_sentiment,
+                "rss": processed_rss
+            }
+            return report_data
+        except requests.exceptions.RequestException as e:
+            print(f"An error occurred while fetching the data: {str(e)}")
+            if attempt < max_retries - 1:
+                print(f"Retrying in {retry_delay} seconds...")
+                time.sleep(retry_delay)
+            else:
+                print("Max retries exceeded. Unable to fetch the data.")
+                return None
