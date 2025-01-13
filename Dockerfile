@@ -1,5 +1,5 @@
-# Using lightweight alpine image
-FROM python:3.13.0rc3-slim-bullseye
+# Using lightweight bullseye image with stable Python version
+FROM python:3.11-slim-bullseye
 
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PYTHONDONTWRITEBYTECODE=1
